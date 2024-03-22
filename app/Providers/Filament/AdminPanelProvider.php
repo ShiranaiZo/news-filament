@@ -25,6 +25,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->darkMode(false)
             ->default()
+            ->favicon(asset('img/favicon.png'))
             ->id('admin')
             ->path('admin')
             ->login()
