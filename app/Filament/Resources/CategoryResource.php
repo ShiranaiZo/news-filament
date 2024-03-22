@@ -12,10 +12,12 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use stdClass;
 
 class CategoryResource extends Resource
 {
@@ -47,7 +49,18 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('updated_at', 'desc')
             ->columns([
+                TextColumn::make('no')->state(
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            ))
+                        );
+                    }
+                ),
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('created_at')
