@@ -7,6 +7,7 @@ use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -18,6 +19,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
@@ -52,6 +54,8 @@ class PostResource extends Resource
                             ->required()
                             ->maxLength(550)
                             ->unique(ignoreRecord:true),
+                        FileUpload::make('cover')
+                            ->directory('cover_articles'),
                         RichEditor::make('content')
                             ->required(),
                         Toggle::make('status')
@@ -71,6 +75,7 @@ class PostResource extends Resource
                     ->boolean()
                     ->trueColor('success')
                     ->sortable(),
+                ImageColumn::make('cover'),
                 TextColumn::make('category.name')
                     ->label('Category')
                     ->searchable()
