@@ -45,6 +45,7 @@ class PostResource extends Resource
                             ->relationship('category', 'name')
                             ->required()
                             ->preload()
+                            ->default(request()->query('category_id'))
                             ->searchable()
                         ,
                         TextInput::make('title')
