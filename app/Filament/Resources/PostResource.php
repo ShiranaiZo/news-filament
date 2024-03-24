@@ -22,6 +22,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,6 +43,7 @@ class PostResource extends Resource
                     ->schema([
                         Select::make('category_id')
                             ->relationship('category', 'name')
+                            ->required()
                             ->preload()
                             ->searchable()
                         ,
@@ -85,7 +87,11 @@ class PostResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                    ->relationship('category', 'name')
+                    ->label('Category')
+                    ->preload()
+                    ->searchable(),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
