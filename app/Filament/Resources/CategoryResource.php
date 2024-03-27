@@ -25,6 +25,16 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
+    public static function getModelLabel(): string
+    {
+        return __('admin.categories');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.categories');
+    }
+
     // protected static ?string $navigationLabel = 'Categories';
 
     public static function form(Form $form): Form
@@ -32,7 +42,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->label('Name')
+                ->label(ucfirst(__('admin.name')))
                 ->maxLength(255)
                 ->required()
                 ->autocomplete(false)

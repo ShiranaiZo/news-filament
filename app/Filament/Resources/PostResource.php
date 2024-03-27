@@ -34,6 +34,15 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
+    public static function getModelLabel(): string
+    {
+        return __('admin.posts');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.posts');
+    }
 
     public static function form(Form $form): Form
     {
@@ -42,6 +51,7 @@ class PostResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('category_id')
+                            ->label(__('admin.posts'))
                             ->relationship('category', 'name')
                             ->required()
                             ->preload()
@@ -49,6 +59,7 @@ class PostResource extends Resource
                             ->searchable()
                         ,
                         TextInput::make('title')
+                            ->label(ucfirst(__('admin.title')))
                             ->required()
                             ->maxLength(512)
                             ->live(onBlur:true)
