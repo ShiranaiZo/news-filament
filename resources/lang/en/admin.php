@@ -1,14 +1,27 @@
 <?php
 
 return [
-    "category" => "category",
-    "categories" => "categories",
-    "posts" => "posts",
-    "post" => "post",
-    "name" => "name",
-    "title" => "title",
-    "email verified at" => "email verified at",
-    "created at" => "created at",
-    "updated at" => "updated at",
-    "password" => "password",
+    // One word
+    "category" => "Category",
+    "categories" => "Categories",
+    "posts" => "Posts",
+    "post" => "Post",
+    "name" => "Name",
+    "title" => "Title",
+    "users" => "Users",
+    "user" => "Users",
+    "password" => "Password",
+    "cover" => "Cover",
+    "publish" => "Publish",
+    "view" => "View",
+    "content" => "Content",
+
+    // Two word
+    "created at" => "Created at",
+    "updated at" => "Updated at",
+    "is published?" => "is Published?",
+    "new post" => "New Post",
+
+    // three word
+    "email verified at" => "Email verified at",
 ];

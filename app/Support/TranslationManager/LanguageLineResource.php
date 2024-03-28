@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Kenepa\TranslationManager\Filters\NotTranslatedFilter;
-use Kenepa\TranslationManager\Pages\QuickTranslate;
+// use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
 use Spatie\TranslationLoader\LanguageLine;
@@ -41,12 +41,12 @@ class LanguageLineResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return trans_choice('translation-manager::translations.translation-label', 1);
+        return trans_choice('translations.translation-label', 1);
     }
 
     public static function getPluralLabel(): ?string
     {
-        return trans_choice('translation-manager::translations.translation-label', 2);
+        return trans_choice('translations.translation-label', 2);
     }
 
     public static function form(Form $form): Form
@@ -56,13 +56,13 @@ class LanguageLineResource extends Resource
                 TextInput::make('group')
                     ->prefixIcon('heroicon-o-tag')
                     ->disabled(config('translation-manager.disable_key_and_group_editing'))
-                    ->label(__('translation-manager::translations.group'))
+                    ->label(__('translations.group'))
                     ->required(),
 
                 TextInput::make('key')
                     ->prefixIcon('heroicon-o-key')
                     ->disabled(config('translation-manager.disable_key_and_group_editing'))
-                    ->label(__('translation-manager::translations.key'))
+                    ->label(__('translations.key'))
                     ->required(),
 
                 ViewField::make('preview')
@@ -74,15 +74,15 @@ class LanguageLineResource extends Resource
                     Repeater::make('translations')->schema([
                         Select::make('language')
                             ->prefixIcon('heroicon-o-language')
-                            ->label(__('translation-manager::translations.translation-language'))
+                            ->label(__('translations.translation-language'))
                             ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
                             ->required(),
 
                         Textarea::make('text')
-                            ->label(__('translation-manager::translations.translation-text'))
+                            ->label(__('translations.translation-text'))
                             ->required(),
                     ])->columns(2)
-                        ->addActionLabel(__('translation-manager::translations.add-translation-button'))
+                        ->addActionLabel(__('translations.add-translation-button'))
                         ->hiddenLabel()
                         ->defaultItems(0)
                         ->reorderable(false)
@@ -111,10 +111,10 @@ class LanguageLineResource extends Resource
 
         $columns = [
             TextColumn::make('group_and_key')
-                ->label(__('translation-manager::translations.group') . ' & ' . __('translation-manager::translations.key'))
+                ->label(__('translations.group') . ' & ' . __('translations.key'))
                 ->searchable(['group', 'key'])
                 ->getStateUsing(function (Model $record) {
-                    return $record->group . '.' . $record->key;
+                    return $record->key . '.' . $record->key;
                 }),
 
             ViewColumn::make('preview')
@@ -123,7 +123,7 @@ class LanguageLineResource extends Resource
                     return $query
                         ->where('text', 'like', "%{$search}%");
                 })
-                ->label(__('translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
+                ->label(__('translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
                 ->sortable(false),
         ];
 
@@ -164,7 +164,7 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('translation-manager::translations.translation-navigation-label');
+        return __('translations.translation-navigation-label');
     }
 
     public static function getNavigationIcon(): ?string

@@ -1,14 +1,27 @@
 <?php
 
 return [
+    // One word
     "category" => "Kategori",
     "categories" => "Kategori",
     "posts" => "Postingan",
     "post" => "Postingan",
-    "name" => "nama",
-    "title" => "judul",
-    "email verified at" => "Email terverifikasi pada",
+    "name" => "Nama",
+    "title" => "Judul",
+    "users" => "Pengguna",
+    "user" => "Pengguna",
+    "password" => "Kata sandi",
+    "cover" => "Cover",
+    "publish" => "Terbit",
+    "view" => "Lihat",
+    "content" => "Konten",
+
+    // Two word
     "created at" => "Dibuat pada",
     "updated at" => "Diperbarui pada",
-    "password" => "Kata Sandi",
+    "is published?" => "Diterbitkan?",
+    "new post" => "Buat Posting",
+
+    // three word
+    "email verified at" => "Email diverifikasi pada",
 ];

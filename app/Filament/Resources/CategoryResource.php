@@ -42,7 +42,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->label(ucfirst(__('admin.name')))
+                ->label(__('admin.name'))
                 ->maxLength(255)
                 ->required()
                 ->autocomplete(false)
@@ -71,13 +71,18 @@ class CategoryResource extends Resource
                         );
                     }
                 ),
-                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('name')
+                    ->label(__('admin.name'))
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('admin.created at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('admin.updated at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
