@@ -22,11 +22,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use stdClass;
 
 class PostResource extends Resource
 {
@@ -34,6 +36,15 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
+    public static function getModelLabel(): string
+    {
+        return __('admin.post');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.posts');
+    }
 
     public static function form(Form $form): Form
     {
@@ -42,6 +53,7 @@ class PostResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('category_id')
+                            ->label(__('admin.category'))
                             ->relationship('category', 'name')
                             ->required()
                             ->preload()
@@ -49,6 +61,7 @@ class PostResource extends Resource
                             ->searchable()
                         ,
                         TextInput::make('title')
+                            ->label(__('admin.title'))
                             ->required()
                             ->maxLength(512)
                             ->live(onBlur:true)
@@ -60,9 +73,10 @@ class PostResource extends Resource
                         FileUpload::make('cover')
                             ->directory('cover_articles'),
                         RichEditor::make('content')
+                            ->label(__('admin.content'))
                             ->required(),
                         Toggle::make('status')
-                            ->label('is Published?')
+                            ->label(__('admin.is published?'))
                             ->default(false),
                     ]),
             ]);
@@ -73,24 +87,35 @@ class PostResource extends Resource
         return $table
             ->defaultSort('updated_at', 'desc')
             ->columns([
+                TextColumn::make('no')->state(
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            ))
+                        );
+                    }
+                ),
+                ImageColumn::make('cover'),
+                TextColumn::make('title')
+                    ->label(__('admin.title'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('category.name')
+                    ->label(__('admin.category'))
+                    ->searchable()
+                    ->sortable(),
                 IconColumn::make('status')
-                    ->label('Publish')
+                    ->label(__('admin.publish'))
                     ->boolean()
                     ->trueColor('success')
                     ->sortable(),
-                ImageColumn::make('cover'),
-                TextColumn::make('category.name')
-                    ->label('Category')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-            ])
+                ])
             ->filters([
                 SelectFilter::make('category_id')
                     ->relationship('category', 'name')
-                    ->label('Category')
+                    ->label(__('admin.category'))
                     ->preload()
                     ->searchable(),
             ])
@@ -98,7 +123,7 @@ class PostResource extends Resource
                 // Tables\Actions\EditAction::make(),
                 ViewAction::make()
                     ->label('')
-                    ->tooltip('View'),
+                    ->tooltip(__('admin.view')),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
