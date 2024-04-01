@@ -2,7 +2,7 @@
 
 return [
     'translation-navigation-label' => 'Translation Manager',
-    'translation-label' => 'Translation|Translations',
+    'translation-label' => 'Translation',
     'group' => 'Translation group',
     'key' => 'Translation key',
     'preview-in-your-lang' => 'Preview in your current language (:lang)',

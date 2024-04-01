@@ -2,7 +2,7 @@
 
 return [
     'translation-navigation-label' => 'Terjemahan',
-    'translation-label' => 'Terjemahan | Terjemahan',
+    'translation-label' => 'Terjemahan',
     'group' => 'Grup Terjemahan',
     'key' => 'Kunci terjemahan',
     'preview-in-your-lang' => 'Pratinjau dalam bahasa Anda saat ini (:lang)',
